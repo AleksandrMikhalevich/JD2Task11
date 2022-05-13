@@ -7,6 +7,7 @@ import courses.entity.Student;
 import courses.entity.Task;
 import courses.entity.Teacher;
 import courses.util.HibernateUtil;
+import courses.utilsTest.Utils;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,7 +37,7 @@ public class AppTest {
         Student student = Utils.createStudent(Set.of(course));
         Teacher teacher = Utils.createTeacher(Set.of(course));
         Mark mark = Utils.createMark();
-        Task task = Utils.createTask(course, mark);
+        Task task = Utils.createTask(mark, course);
 
         EntityManager entityManager = HibernateUtil.getEntityManager();
         entityManager.getTransaction().begin();
@@ -59,7 +60,7 @@ public class AppTest {
                 .hours(COURSE_HOURS)
                 .build();
 
-        EntityDaoImpl<? extends Course, ?> daoCourse
+        EntityDaoImpl<Course> daoCourse
                 = new EntityDaoImpl<>(Course.class);
 
         daoCourse.insert(course1);
@@ -72,10 +73,9 @@ public class AppTest {
             NoSuchMethodException, IllegalAccessException {
         Mark mark1 = Mark.builder()
                 .mark(MARK)
-                .review(MARK_REVIEW)
                 .build();
 
-        EntityDaoImpl<? extends Mark, ?> daoMark
+        EntityDaoImpl<Mark> daoMark
                 = new EntityDaoImpl<>(Mark.class);
 
         daoMark.insert(mark1);
@@ -84,15 +84,13 @@ public class AppTest {
     }
 
     @Test
-    public void deleteIdTest()
-            throws InvocationTargetException,
-            NoSuchMethodException, IllegalAccessException {
+    public void deleteIdTest() {
         Course course2 = Course.builder()
                 .description(COURSE_DESCRIPTION_2)
                 .hours(COURSE_HOURS_2)
                 .build();
 
-        EntityDaoImpl<? extends Course, ?> daoCourse
+        EntityDaoImpl<Course> daoCourse
                 = new EntityDaoImpl<>(Course.class);
 
         daoCourse.insert(course2);
@@ -107,7 +105,7 @@ public class AppTest {
                 .hours(COURSE_HOURS)
                 .build();
 
-        EntityDaoImpl<? extends Course, ?> daoCourse
+        EntityDaoImpl<Course> daoCourse
                 = new EntityDaoImpl<>(Course.class);
         daoCourse.insert(course1);
 
@@ -124,10 +122,9 @@ public class AppTest {
     public void getEntityTest() {
         Mark mark2 = Mark.builder()
                 .mark(MARK)
-                .review(MARK_REVIEW)
                 .build();
 
-        EntityDaoImpl<? extends Mark, ?> daoMark
+        EntityDaoImpl<Mark> daoMark
                 = new EntityDaoImpl<>(Mark.class);
 
         daoMark.insert(mark2);
@@ -140,17 +137,12 @@ public class AppTest {
                 .description(COURSE_DESCRIPTION)
                 .hours(COURSE_HOURS)
                 .build();
-        EntityDaoImpl<? extends Course, ?> daoCourse
+        EntityDaoImpl<Course> daoCourse
                 = new EntityDaoImpl<>(Course.class);
 
         daoCourse.insert(course1);
         List<Course> courses = new LinkedList<>();
         courses.add(course1);
         Assert.assertEquals(courses.toString(), daoCourse.select().toString());
-    }
-
-    @AfterClass
-    public static void clean() {
-        HibernateUtil.close();
     }
 }

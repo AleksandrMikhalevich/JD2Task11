@@ -12,7 +12,7 @@ import managment.interfaces.AdminService;
 
 import java.util.Set;
 
-public class AdminServiceImpl<T> implements AdminService {
+public class AdminServiceImpl implements AdminService {
 
     private final EntityDaoImplAdmin daoImplAdmin;
 
@@ -60,8 +60,8 @@ public class AdminServiceImpl<T> implements AdminService {
     @Override
     public Teacher createTeacher(String surname, String name) {
         Teacher teacher = Teacher.builder()
-                .surname(surname)
                 .name(name)
+                .surname(surname)
                 .build();
         daoImplTeacher.insert(teacher);
         return teacher;
@@ -70,7 +70,6 @@ public class AdminServiceImpl<T> implements AdminService {
     @Override
     public void deleteTeacher(int id) {
         daoImplTeacher.deleteById(id);
-
     }
 
     @Override

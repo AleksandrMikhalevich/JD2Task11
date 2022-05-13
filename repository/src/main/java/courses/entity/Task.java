@@ -51,11 +51,18 @@ public class Task implements Serializable {
     private String review;
 
     /**
-     * Connection with table "Course"
+     * Connection with table "Student"
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "student_id")
     private Student student;
+
+    /**
+     * Connection with table "Course"
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     /**
      * Connection with table "Mark"

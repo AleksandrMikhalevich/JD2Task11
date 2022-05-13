@@ -1,20 +1,11 @@
 package courses.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -25,16 +16,16 @@ import java.util.Objects;
  */
 @Getter
 @Setter
-@Entity(name = "Person")
-@SuperBuilder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "PERSON")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Person implements Serializable {  
+@SuperBuilder
+@MappedSuperclass
+public class Person implements Serializable {
+
     private final static long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name")
@@ -46,15 +37,14 @@ public class Person implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this)
-                != Hibernate.getClass(o)) return false;
+        if (!(o instanceof Person)) return false;
         Person person = (Person) o;
-        return id != null && Objects.equals(id, person.id);
+        return Objects.equals(getId(), person.getId());
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(getId());
     }
 }
 

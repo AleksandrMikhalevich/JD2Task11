@@ -2,6 +2,7 @@ package managment.implementation;
 
 import courses.dao.EntityDaoImplTask;
 import courses.dao.EntityDaoImplTeacher;
+import courses.entity.Course;
 import courses.entity.Mark;
 import courses.entity.Student;
 import courses.entity.Task;
@@ -21,9 +22,10 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Task addTask(String desc) {
+    public Task addTask(String desc, Course course) {
         Task task = Task.builder()
                 .description(desc)
+                .course(course)
                 .build();
         daoImplTask.insert(task);
         return task;

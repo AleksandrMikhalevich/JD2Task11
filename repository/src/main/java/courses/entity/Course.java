@@ -9,13 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -58,6 +52,14 @@ public class Course implements Serializable {
     @ManyToMany(mappedBy = "courses")
     @ToString.Exclude
     private Set<Teacher> teachers = new HashSet<>();
+
+    /**
+     * Connection with table "Task"
+     */
+    @OneToMany(mappedBy = "course")
+    @ToString.Exclude
+    private Set<Task> tasks = new HashSet<>();
+
 
     @Override
     public boolean equals(Object o) {

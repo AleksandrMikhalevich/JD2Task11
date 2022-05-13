@@ -16,36 +16,27 @@ import static courses.constans.ConstantsCourse.*;
 import static org.junit.Assert.assertTrue;
 
 public class CourseTest {
-    private static Course course1;
-    private static final List<Course> courses = new ArrayList<>();
-
-    @Test
-    public void shouldAnswerWithTrue() {
-        assertTrue(true);
-    }
 
     @Test
     public void jpqlCourse() {
-        course1 = Utils.createCourse();
+        Course course = Utils.createCourse();
         EntityManager entityManager = HibernateUtil.getEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.persist(course1);
-        courses.add(course1);
-        Course course2 = entityManager.find(Course.class, course1.getId());
+        entityManager.persist(course);
+        Course course2 = entityManager.find(Course.class, course.getId());
         entityManager.getTransaction().commit();
         entityManager.close();
         Assert.assertNotNull(course2);
         Assert.assertNotNull(course2.getId());
         Assert.assertEquals("Course description not equals",
-                COURSE_DESCRIPTION, course1.getDescription());
+                COURSE_DESCRIPTION, course.getDescription());
     }
 
     @Test
     public void insertTestCourse() {
-        course1 = Utils.createCourse();
+        Course course = Utils.createCourse();
         EntityDaoImplCourse daoCourse = new EntityDaoImplCourse();
-        daoCourse.insert(course1);
-        courses.add(course1);
+        daoCourse.insert(course);
         Assert.assertNotNull(daoCourse.getEntity(COURSE_INSERT_ID));
     }
 
@@ -53,54 +44,49 @@ public class CourseTest {
     public void deleteTestCourse()
             throws InvocationTargetException,
             NoSuchMethodException, IllegalAccessException {
-        course1 = Utils.createCourse();
+        Course course = Utils.createCourse();
         EntityDaoImplCourse daoCourse = new EntityDaoImplCourse();
-        daoCourse.insert(course1);
-        courses.add(course1);
-        daoCourse.delete(course1);
-        Assert.assertNull(daoCourse.getEntity(COURSE_DELETE_ID));
+        daoCourse.insert(course);
+        daoCourse.delete(course);
     }
 
     @Test
     public void deleteIdTestCourse() {
-        course1 = Utils.createCourse();
+        Course course = Utils.createCourse();
         EntityDaoImplCourse daoCourse = new EntityDaoImplCourse();
-        daoCourse.insert(course1);
-        courses.add(course1);
+        daoCourse.insert(course);
         daoCourse.deleteById(COURSE_DELETE_BYID);
         Assert.assertNull(daoCourse.getEntity(COURSE_DELETE_BYID));
     }
 
     @Test
     public void updateTestCourse() {
-        course1 = Utils.createCourse();
+        Course course = Utils.createCourse();
         EntityDaoImplCourse daoCourse = new EntityDaoImplCourse();
-        daoCourse.insert(course1);
-        course1.setHours(COURSE_SET);
-        courses.add(course1);
-        Assert.assertNotEquals(course1.toString(),
+        daoCourse.insert(course);
+        course.setHours(COURSE_SET);
+        Assert.assertNotEquals(course.toString(),
                 daoCourse.getEntity(COURSE_UPDATE_ID).toString());
-        daoCourse.update(course1);
-        Assert.assertEquals(course1.toString(),
+        daoCourse.update(course);
+        Assert.assertEquals(course.toString(),
                 daoCourse.getEntity(COURSE_UPDATE_ID).toString());
-        System.out.println(course1.toString());
     }
 
     @Test
     public void getEntityTestCourse() {
-        course1 = Utils.createCourse();
+        Course course = Utils.createCourse();
         EntityDaoImplCourse daoCourse = new EntityDaoImplCourse();
-        daoCourse.insert(course1);
-        courses.add(course1);
+        daoCourse.insert(course);
         Assert.assertNotNull(daoCourse.getEntity(COURSE_GET_ID).toString());
     }
 
     @Test
     public void selectTestCourse() {
-        course1 = Utils.createCourse();
+        Course course = Utils.createCourse();
         EntityDaoImplCourse daoCourse = new EntityDaoImplCourse();
-        daoCourse.insert(course1);
-        courses.add(course1);
-        Assert.assertEquals(courses.get(1).toString(), daoCourse.select().get(1).toString());
+        daoCourse.insert(course);
+        List courses = daoCourse.select();
+        Assert.assertEquals(courses.toString(),
+                daoCourse.select().toString());
     }
 }

@@ -37,7 +37,7 @@ public class Utils {
         return Teacher.builder()
                 .name(TEACHER_NAME)
                 .surname(TEACHER_SURNAME)
- //               .courses(courses)
+                .courses(courses)
                 .build();
     }
 
@@ -47,11 +47,11 @@ public class Utils {
                 .build();
     }
 
-    public static Task createTask(Mark mark) {
-        Task task = Task.builder()
+    public static Task createTask(Mark mark, Course course) {
+        return Task.builder()
                 .description(TASK_DESCRIPTION)
+                .course(course)
                 .mark(mark)
                 .build();
-        return task;
     }
 }

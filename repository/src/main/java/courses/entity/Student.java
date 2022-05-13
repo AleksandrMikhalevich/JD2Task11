@@ -22,17 +22,17 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Class studentl
+ * Class Student
  */
 @Getter
 @Setter
-@Entity(name = "Student")
+@Entity
 @SuperBuilder
 @AllArgsConstructor
-
 @NoArgsConstructor
-@Table(name = "STUDENT")
+@Table
 public class Student extends Person implements Serializable {
+
     private final static long serialVersionUID = 1L;
     /**
      * Connection with table "Course"
@@ -48,6 +48,7 @@ public class Student extends Person implements Serializable {
 
     @OneToMany(mappedBy = "student")
     @ToString.Exclude
+    @Builder.Default
     private Set<Task> tasks = new HashSet<>();
 
     @Override

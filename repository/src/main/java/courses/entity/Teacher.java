@@ -28,11 +28,11 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@Entity(name = "Teacher")
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@Table(name = "TEACHER")
+@Table
 public class Teacher extends Person implements Serializable {
     private static final long serialVersionUID = 1L;
 

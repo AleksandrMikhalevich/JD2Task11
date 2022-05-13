@@ -21,10 +21,7 @@ public class EntityDaoImplStudent extends EntityDaoImpl<Student> {
         em = HibernateUtil.getEntityManager();
         try {
             em.getTransaction().begin();
-            Course courseForFind = em.find(Course.class, course.getId());
-            System.out.println("Вы успешно записаны на выбранный курс:");
             student.setCourses(Set.of(course));
-            System.out.println(courseForFind.getDescription());
             em.getTransaction().commit();
         } catch (HibernateException e) {
             em.getTransaction().rollback();
@@ -33,21 +30,18 @@ public class EntityDaoImplStudent extends EntityDaoImpl<Student> {
         }
     }
 
-    public void selectMark(int studentID, int courseId, int taskId) {
+    public Task searchInTasks(int id) {
         em = HibernateUtil.getEntityManager();
+        Task taskToFind = null;
         try {
             em.getTransaction().begin();
-            Student studentForFind = em.find(Student.class, studentID);
-            System.out.println(studentForFind);
-            Course courseForFind = em.find(Course.class, courseId);
-            System.out.println(courseForFind.getDescription());
-            Task taskForFind = em.find(Task.class, taskId);
-            System.out.println(taskForFind.getMark());
+            taskToFind = em.find(Task.class, id);
             em.getTransaction().commit();
         } catch (HibernateException e) {
             em.getTransaction().rollback();
         } finally {
             em.close();
         }
+        return taskToFind;
     }
 }

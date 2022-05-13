@@ -5,19 +5,6 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet id="1" author="Oliviya Kustova">
-        <comment>create table person</comment>
-        <sql>
-            create table person
-            (
-                id      int not null
-                    primary key,
-                name    varchar(255) null,
-                surname varchar(255) null
-            );
-        </sql>
-    </changeSet>
-
-    <changeSet id="2" author="Oliviya Kustova">
         <comment>create table marks</comment>
         <sql>
             create table marks
@@ -29,7 +16,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="3" author="Oliviya Kustova">
+    <changeSet id="2" author="Oliviya Kustova">
         <comment>create table course</comment>
         <sql>
             create table course
@@ -42,12 +29,25 @@
         </sql>
     </changeSet>
 
-    <changeSet id="4" author="Oliviya Kustova">
+    <changeSet id="3" author="Oliviya Kustova">
         <comment>create table teacher</comment>
         <sql>
             create table teacher
             (
-                id      int not null
+                id      int auto_increment
+                    primary key,
+                name    varchar(255) null,
+                surname varchar(255) null
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="4" author="Oliviya Kustova">
+        <comment>create table student</comment>
+        <sql>
+            create table student
+            (
+                id      int auto_increment
                     primary key,
                 name    varchar(255) null,
                 surname varchar(255) null
@@ -56,19 +56,6 @@
     </changeSet>
 
     <changeSet id="5" author="Oliviya Kustova">
-        <comment>create table student</comment>
-        <sql>
-            create table student
-            (
-                id      int not null
-                    primary key,
-                name    varchar(255) null,
-                surname varchar(255) null
-            );
-        </sql>
-    </changeSet>
-
-    <changeSet id="6" author="Oliviya Kustova">
         <comment>create table teacher_courses</comment>
         <sql>
             create table teacher_courses
@@ -85,7 +72,7 @@
     </changeSet>
 
 
-    <changeSet id="7" author="Oliviya Kustova">
+    <changeSet id="6" author="Oliviya Kustova">
         <comment>create table student_courses</comment>
         <sql>
             create table students_courses
@@ -101,7 +88,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="8" author="Oliviya Kustova">
+    <changeSet id="7" author="Oliviya Kustova">
         <comment>create table task</comment>
         <sql>
             create table task
@@ -111,17 +98,20 @@
                 description varchar(255) null,
                 review      varchar(255) null,
                 done        varchar(30) null,
+                course_id   int null,
                 student_id  int null,
                 mark_id     int null,
+                constraint task_course_fk
+                    foreign key (course_id) references course (id),
                 constraint task_student_fk
-                    foreign key (student_id) references course (id),
+                    foreign key (student_id) references student (id),
                 constraint task_marks_fk
                     foreign key (mark_id) references marks (id)
             );
         </sql>
     </changeSet>
 
-    <changeSet id="9" author="Oliviya Kustova">
+    <changeSet id="8" author="Oliviya Kustova">
         <comment>create table admin</comment>
         <sql>
             create table admin

@@ -8,4 +8,6 @@ public class ConstantsForTest {
     public static final String HOURS_COURSE = "140";
     public static final String TEACHER_NAME = "Mihail";
     public static final String TEACHER_SURNAME = "Petrov";
+    public static final String STUDENT_NAME = "Anatoly";
+    public static final String STUDENT_SURNAME = "Kotov";
 }

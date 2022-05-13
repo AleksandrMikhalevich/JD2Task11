@@ -19,28 +19,17 @@ import static courses.constans.ConstantsTask.*;
 import static org.junit.Assert.assertTrue;
 
 public class TaskTest {
-    private static Task task;
-    private static final List<Task> tasks = new LinkedList<>();
-
-    /**
-     * Rigorous Test :-)
-     */
-    @Test
-    public void shouldAnswerWithTrue() {
-        assertTrue(true);
-    }
 
     @Test
     public void jpqlTask() {
         Course course = Utils.createCourse();
         Mark mark = Utils.createMark();
-        task = Utils.createTask(mark);
+        Task task = Utils.createTask(mark, course);
         EntityManager entityManager = HibernateUtil.getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(course);
         entityManager.persist(mark);
         entityManager.persist(task);
-        tasks.add(task);
         entityManager.getTransaction().commit();
         entityManager.close();
         Assert.assertNotNull(task);
@@ -52,13 +41,11 @@ public class TaskTest {
     public void insertTestTask() {
         Course course = Utils.createCourse();
         Mark mark = Utils.createMark();
-        task = Utils.createTask(mark);
+        Task task = Utils.createTask(mark, course);
         EntityDaoImplTask daoTask = new EntityDaoImplTask();
         daoTask.insert(course);
         daoTask.insert(mark);
         daoTask.insert(task);
-        tasks.add(task);
-
         Assert.assertNotNull(daoTask.getEntity(TASK_INSERT_ID));
     }
 
@@ -66,12 +53,12 @@ public class TaskTest {
     public void deleteTestTask()
             throws InvocationTargetException,
             NoSuchMethodException, IllegalAccessException {
+        Course course = Utils.createCourse();
         Mark mark = Utils.createMark();
-        task = Utils.createTask(mark);
+        Task task = Utils.createTask(mark, course);
         EntityDaoImplTask daoTask = new EntityDaoImplTask();
         daoTask.insert(mark);
         daoTask.insert(task);
-        tasks.add(task);
         daoTask.delete(task);
         Assert.assertNotNull(task);
         System.out.println("Attention. There are dependent tables!");
@@ -81,12 +68,11 @@ public class TaskTest {
     public void deleteIdTestTask() {
         Course course = Utils.createCourse();
         Mark mark = Utils.createMark();
-        task = Utils.createTask(mark);
+        Task task = Utils.createTask(mark, course);
         EntityDaoImplTask daoTask = new EntityDaoImplTask();
         daoTask.insert(course);
         daoTask.insert(mark);
         daoTask.insert(task);
-        tasks.add(task);
         daoTask.deleteById(TASK_DELETE_BYID);
         Assert.assertNotNull(task);
         System.out.println("Attention. There are dependent tables!");
@@ -96,13 +82,12 @@ public class TaskTest {
     public void updateTestTask() {
         Course course = Utils.createCourse();
         Mark mark = Utils.createMark();
-        task = Utils.createTask(mark);
+        Task task = Utils.createTask(mark, course);
         EntityDaoImplTask daoTask = new EntityDaoImplTask();
         task.setDescription(TASK_SET_DESCRIPTION);
         daoTask.insert(course);
         daoTask.insert(mark);
         daoTask.insert(task);
-        tasks.add(task);
         daoTask.update(task);
         Assert.assertEquals(task.getDescription(),
                 TASK_SET_DESCRIPTION);
@@ -112,12 +97,11 @@ public class TaskTest {
     public void getEntityTestTask() {
         Course course = Utils.createCourse();
         Mark mark = Utils.createMark();
-        task = Utils.createTask(mark);
+        Task task = Utils.createTask(mark, course);
         EntityDaoImplTask daoTask = new EntityDaoImplTask();
         daoTask.insert(course);
         daoTask.insert(mark);
         daoTask.insert(task);
-        tasks.add(task);
         Assert.assertNotNull(daoTask.getEntity(TASK_GET_ID).toString());
     }
 
@@ -125,12 +109,12 @@ public class TaskTest {
     public void selectTestTask() {
         Course course = Utils.createCourse();
         Mark mark = Utils.createMark();
-        task = Utils.createTask(mark);
+        Task task = Utils.createTask(mark, course);
         EntityDaoImplTask daoTask = new EntityDaoImplTask();
         daoTask.insert(course);
         daoTask.insert(mark);
         daoTask.insert(task);
-        tasks.add(task);
+        List tasks = daoTask.select();
         Assert.assertEquals(tasks.toString(), daoTask.select().toString());
     }
 }

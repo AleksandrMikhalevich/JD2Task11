@@ -1,5 +1,6 @@
 package managment.interfaces;
 
+import courses.entity.Course;
 import courses.entity.Mark;
 import courses.entity.Student;
 import courses.entity.Task;
@@ -10,7 +11,7 @@ public interface TeacherService {
     /**
      * Add Task
      */
-    Task addTask(String desc);
+    Task addTask(String desc, Course course);
 
     /**
      * Delete Task

@@ -16,30 +16,35 @@ import managment.interfaces.StudentService;
  * Main Class
  */
 public class Manager {
+
     public static void main(String[] args) {
 
-        /**
-         * AdminService
+        /*
+        AdminService
          */
+
         System.out.println("\n************Admin Service******************");
-        AdminServiceImpl as = new AdminServiceImpl<>(new EntityDaoImplAdmin());
-        /**
-         * Create Courses
+        AdminServiceImpl as = new AdminServiceImpl(new EntityDaoImplAdmin());
+
+        /*
+        Create Courses
          */
         Course course1 = as.createCourse("Math", "240");
         Course course2 = as.createCourse("Gym", "150");
         Course course3 = as.createCourse("Physics", "160");
         System.out.println("\n____________Table of Courses____________");
         as.printCourse();
-        /**
-         * Create Teachers
+
+        /*
+        Create Teachers
          */
         Teacher teacher1 = as.createTeacher("Valeria", "Petrova");
-        Teacher teacher2 = as.createTeacher("Galina", "Ivanovf");
+        Teacher teacher2 = as.createTeacher("Galina", "Ivanova");
         System.out.println("\n____________Table of Teachers____________");
         as.printTeacher();
-        /**
-         * ConnectTeacherAndCourses
+
+        /*
+        ConnectTeacherAndCourses
          */
         as.connectTeacherAndCourse(teacher1, course1);
         as.connectTeacherAndCourse(teacher1, course3);
@@ -47,8 +52,8 @@ public class Manager {
         System.out.println("\n____________Table of Teachers and Courses____________");
         as.printCourse();
 
-        /**
-         * Create Mark
+        /*
+        Create Mark
          */
         Mark mark1 = as.createMark(1);
         Mark mark2 = as.createMark(2);
@@ -61,8 +66,21 @@ public class Manager {
         Mark mark9 = as.createMark(9);
         Mark mark10 = as.createMark(10);
 
-        /**
-         * StudentService
+        /*
+        TeacherService
+         */
+        System.out.println("\n************Teacher Service******************");
+        TeacherServiceImpl ts = new TeacherServiceImpl(new EntityDaoImplTeacher());
+          /*
+        Create Task
+         */
+        Task task1 = ts.addTask("Task1", course1);
+        Task task2 = ts.addTask("Task2", course2);
+        Task task3 = ts.addTask("Task3", course3);
+        Task task4 = ts.addTask("Task4", course3);
+
+        /*
+        StudentService
          */
         System.out.println("\n************Student Service******************");
         StudentService ss = new StudentServiceImpl();
@@ -72,24 +90,8 @@ public class Manager {
         ss.enrollInCourse(student1, course1);
         System.out.println("=========================================================================================");
         ss.enrollInCourse(student2, course2);
-        System.out.println("=========================================================================================");
-//        ss.searchInTasks(3, 2, 1);
-//        System.out.println("=========================================================================================");
-//        ss.searchInTasks(3, 1, 2);
-//        System.out.println("=========================================================================================");
 
-        /**
-         * TeacherService
-         */
-        System.out.println("\n************Teacher Service******************");
-        TeacherServiceImpl ts = new TeacherServiceImpl(new EntityDaoImplTeacher());
-        /**
-         * Create Task
-         */
-        Task task1 = ts.addTask("Task1");
-        Task task2 = ts.addTask("Task2");
-        Task task3 = ts.addTask("Task3");
-        Task task4 = ts.addTask("Task4");
+
         System.out.println("\n____________Table of Task____________");
         ts.showTask();
         ts.deleteTask(task4.getId());
@@ -106,5 +108,11 @@ public class Manager {
         ts.showTaskWithMark();
         System.out.println("\n\n____________Table of Task without Mark____________");
         ts.showTaskWithoutMark();
+
+        System.out.println("=========================================================================================");
+        System.out.println(ss.searchInTasks(1));
+        System.out.println("=========================================================================================");
+        System.out.println(ss.searchInTasks(2));
+        System.out.println("=========================================================================================");
     }
 }
