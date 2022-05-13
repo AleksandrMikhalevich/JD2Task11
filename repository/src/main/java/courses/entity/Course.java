@@ -1,20 +1,36 @@
 package courses.entity;
 
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Class Course
+ */
 @Getter
 @Setter
-@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "course")
 public class Course implements Serializable {
@@ -28,22 +44,26 @@ public class Course implements Serializable {
     @Column(name = "hours")
     private String hours;
 
+    /**
+     * Connection with table "Student"
+     */
     @ManyToMany(mappedBy = "courses")
     @ToString.Exclude
+    @Builder.Default
     private Set<Student> students = new HashSet<>();
 
+    /**
+     * Connection with table "Teacher"
+     */
     @ManyToMany(mappedBy = "courses")
     @ToString.Exclude
     private Set<Teacher> teachers = new HashSet<>();
 
-    @OneToMany(mappedBy = "course")
-    @ToString.Exclude
-    private Set<Task> tasks = new HashSet<>();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || Hibernate.getClass(this)
+                != Hibernate.getClass(o)) return false;
         Course course = (Course) o;
         return id != null && Objects.equals(id, course.id);
     }

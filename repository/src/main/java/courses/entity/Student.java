@@ -1,43 +1,54 @@
 package courses.entity;
 
-import lombok.*;
-import lombok.experimental.SuperBuilder;
-import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Class studentl
+ */
 @Getter
 @Setter
+@Entity(name = "Student")
 @SuperBuilder
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "student")
-public class Student extends Person implements Serializable  {
 
+@NoArgsConstructor
+@Table(name = "STUDENT")
+public class Student extends Person implements Serializable {
+    private final static long serialVersionUID = 1L;
+    /**
+     * Connection with table "Course"
+     */
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "students_courses", joinColumns = {@JoinColumn(name = "id_student")},
+    @JoinTable(name = "students_courses",
+            joinColumns = {@JoinColumn(name = "id_student")},
             inverseJoinColumns = {@JoinColumn(name = "id_course")}
     )
     @ToString.Exclude
+    @Builder.Default
     private Set<Course> courses = new HashSet<>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Student student = (Student) o;
-        return getId() != null && Objects.equals(getId(), student.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+    @OneToMany(mappedBy = "student")
+    @ToString.Exclude
+    private Set<Task> tasks = new HashSet<>();
 
     @Override
     public String toString() {
