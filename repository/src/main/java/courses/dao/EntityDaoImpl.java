@@ -10,7 +10,9 @@ import java.util.List;
 
 public class EntityDaoImpl<T> implements EntityDao {
 
+
     private static EntityManager em;
+
     private final Class<T> clazz;
 
     public EntityDaoImpl(Class<T> clazz) {
@@ -61,6 +63,7 @@ public class EntityDaoImpl<T> implements EntityDao {
      */
     @Override
     public void deleteById(Integer id) {
+
         em = HibernateUtil.getEntityManager();
         em.getTransaction().begin();
         try {

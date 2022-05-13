@@ -1,5 +1,6 @@
 package courses.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -27,11 +29,11 @@ import java.util.Set;
 @Entity(name = "Student")
 @SuperBuilder
 @AllArgsConstructor
+
 @NoArgsConstructor
 @Table(name = "STUDENT")
 public class Student extends Person implements Serializable {
     private final static long serialVersionUID = 1L;
-
     /**
      * Connection with table "Course"
      */
@@ -47,7 +49,6 @@ public class Student extends Person implements Serializable {
     @OneToMany(mappedBy = "student")
     @ToString.Exclude
     private Set<Task> tasks = new HashSet<>();
-
 
     @Override
     public String toString() {

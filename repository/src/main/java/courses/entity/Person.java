@@ -1,5 +1,6 @@
 package courses.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +31,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Table(name = "PERSON")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Person implements Serializable {
+public class Person implements Serializable {  
     private final static long serialVersionUID = 1L;
     @Id
     @GeneratedValue

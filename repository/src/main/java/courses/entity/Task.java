@@ -1,11 +1,13 @@
 package courses.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 import org.hibernate.Hibernate;
 
 import javax.persistence.CascadeType;
@@ -20,13 +22,14 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
+
 /**
  * Class Task
  */
 @Getter
 @Setter
 @Entity
-@Table(name = "TASK")
+@Table(name = "task")
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

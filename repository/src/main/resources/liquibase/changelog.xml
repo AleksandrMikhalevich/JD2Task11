@@ -84,6 +84,7 @@
         </sql>
     </changeSet>
 
+
     <changeSet id="7" author="Oliviya Kustova">
         <comment>create table student_courses</comment>
         <sql>
