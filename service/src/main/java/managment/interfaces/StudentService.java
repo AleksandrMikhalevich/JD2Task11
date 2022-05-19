@@ -4,6 +4,8 @@ import courses.entity.Course;
 import courses.entity.Student;
 import courses.entity.Task;
 
+import java.util.List;
+
 /**
  * @author Alex Mikhalevich
  * @version 1.0
@@ -13,7 +15,17 @@ public interface StudentService {
 
     Student register(String name, String surname);
 
+    void update(int id, String name, String surname);
+
+    void deleteById(int id);
+
+    List<Student> findAll();
+
+    Student findStudentById(int id);
+
     void enrollInCourse(Student student, Course course);
+
+    void cancelEnrollment(Student student, Course course);
 
     Task searchInTasks(int id);
 

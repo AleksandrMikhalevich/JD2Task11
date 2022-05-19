@@ -1,16 +1,14 @@
 package managment.implementation;
 
-import courses.dao.EntityDaoImplAdmin;
-import courses.dao.EntityDaoImplCourse;
-import courses.dao.EntityDaoImplMark;
-import courses.dao.EntityDaoImplPerson;
-import courses.dao.EntityDaoImplTeacher;
+import DTO.CourseDTO;
+import courses.dao.*;
 import courses.entity.Course;
 import courses.entity.Mark;
 import courses.entity.Teacher;
 import managment.interfaces.AdminService;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminServiceImpl implements AdminService {
 
@@ -53,8 +51,16 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void printCourse() {
-        daoImplCourse.select();
+    public List<Course> listAllCourses() {
+        return daoImplCourse.select();
+    }
+
+    public Course findCourse(int id) {
+        return daoImplCourse.getEntity(id);
+    }
+
+    public Teacher findTeacher(int id) {
+        return daoImplTeacher.getEntity(id);
     }
 
     @Override
@@ -78,14 +84,21 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void printTeacher() {
-        daoImplTeacher.select();
+    public List<Teacher> listAllTeachers() {
+        return daoImplTeacher.select();
     }
 
     @Override
-    public void connectTeacherAndCourse(Teacher teacher, Course course) {
-        teacher.setCourses(Set.of(course));
-        daoImplTeacher.update(teacher);
+    public void enrollTeacher(Teacher teacher, Course course) {
+        teacher.getCourses().add(course);
+        daoImplTeacher.enrollTeacher(teacher);
+
+    }
+    @Override
+    public void cancelEnrollTeacher(Teacher teacher, Course course) {
+        teacher.getCourses().remove(course);
+        daoImplTeacher.enrollTeacher(teacher);
+
     }
 
     @Override
@@ -95,5 +108,21 @@ public class AdminServiceImpl implements AdminService {
                 .build();
         daoImplMark.insert(mark);
         return mark;
+    }
+
+    @Override
+    public List<CourseDTO> listOfAllCourses() {
+        List<Object[]> lists = daoImplCourse.listOfAllCourse();
+        List<CourseDTO> listOfCourseDto = new ArrayList<>();
+        for (Object[] list : lists) {
+            listOfCourseDto.add(CourseDTO.builder()
+                    .id((Integer) list[0])
+                    .description((String) list[1])
+                    .hours((String) list[2])
+                    .teacherSurname((String) list[3])
+                    .teacherName((String) list[4])
+                    .build());
+        }
+        return listOfCourseDto;
     }
 }

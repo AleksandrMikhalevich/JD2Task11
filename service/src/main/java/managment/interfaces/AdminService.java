@@ -1,10 +1,12 @@
 package managment.interfaces;
 
+import DTO.CourseDTO;
 import courses.entity.Course;
 import courses.entity.Mark;
 import courses.entity.Teacher;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 public interface AdminService {
 
@@ -16,7 +18,9 @@ public interface AdminService {
 
     void updateCourse(String desc, String hours);
 
-    void printCourse();
+    List<Course> listAllCourses();
+
+    List<CourseDTO> listOfAllCourses();
 
     Teacher createTeacher(String surname, String name);
 
@@ -24,9 +28,15 @@ public interface AdminService {
 
     void updateTeacher(String surname, String name);
 
-    void printTeacher();
+    List<Teacher> listAllTeachers();
 
-    void connectTeacherAndCourse(Teacher teacher,Course course);
+    Teacher findTeacher(int id);
+
+    void cancelEnrollTeacher(Teacher teacher, Course course);
+
+    void enrollTeacher(Teacher teacher, Course course);
 
     Mark createMark(Integer mark);
+
+    Course findCourse(int id);
 }

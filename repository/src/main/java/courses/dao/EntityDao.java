@@ -20,8 +20,7 @@ public interface EntityDao {
     /**
      * Method to delete object by ID
      */
-    void deleteById(Integer id) throws InvocationTargetException,
-            NoSuchMethodException, IllegalAccessException;
+    void deleteById(Integer id);
 
     /**
      * Method to update information about the object

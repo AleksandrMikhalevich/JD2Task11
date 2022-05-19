@@ -2,11 +2,7 @@ package managment;
 
 import courses.dao.EntityDaoImplAdmin;
 import courses.dao.EntityDaoImplTeacher;
-import courses.entity.Course;
-import courses.entity.Mark;
-import courses.entity.Student;
-import courses.entity.Task;
-import courses.entity.Teacher;
+import courses.entity.*;
 import managment.implementation.AdminServiceImpl;
 import managment.implementation.StudentServiceImpl;
 import managment.implementation.TeacherServiceImpl;
@@ -33,7 +29,7 @@ public class Manager {
         Course course2 = as.createCourse("Gym", "150");
         Course course3 = as.createCourse("Physics", "160");
         System.out.println("\n____________Table of Courses____________");
-        as.printCourse();
+        as.listAllCourses();
 
         /*
         Create Teachers
@@ -41,16 +37,16 @@ public class Manager {
         Teacher teacher1 = as.createTeacher("Valeria", "Petrova");
         Teacher teacher2 = as.createTeacher("Galina", "Ivanova");
         System.out.println("\n____________Table of Teachers____________");
-        as.printTeacher();
+        as.listAllTeachers();
 
         /*
         ConnectTeacherAndCourses
          */
-        as.connectTeacherAndCourse(teacher1, course1);
-        as.connectTeacherAndCourse(teacher1, course3);
-        as.connectTeacherAndCourse(teacher2, course2);
+        as.enrollTeacher(teacher1, course1);
+        as.enrollTeacher(teacher1, course3);
+        as.enrollTeacher(teacher2, course2);
         System.out.println("\n____________Table of Teachers and Courses____________");
-        as.printCourse();
+        as.listAllCourses();
 
         /*
         Create Mark

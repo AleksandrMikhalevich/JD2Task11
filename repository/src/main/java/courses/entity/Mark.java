@@ -28,12 +28,13 @@ import java.util.Set;
 @Getter
 @Setter
 
-@Entity
-@Table(name = "marks")
+
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
+@Entity
+@Table(name = "marks")
 public class Mark implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

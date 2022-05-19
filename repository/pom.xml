@@ -8,14 +8,14 @@
         <version>1</version>
     </parent>
 
+
     <groupId>it.academy.JD2Task11</groupId>
     <artifactId>repository</artifactId>
     <version>1</version>
 
     <name>repository</name>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
-  
+
+
     <build>
         <plugins>
             <plugin>

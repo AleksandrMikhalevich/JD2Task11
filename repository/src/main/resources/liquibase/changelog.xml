@@ -11,8 +11,19 @@
             (
                 id   int auto_increment
                     primary key,
-                mark int null
+                mark int null unique
             );
+            INSERT INTO marks (mark)
+            VALUES (1),
+                   (2),
+                   (3),
+                   (4),
+                   (5),
+                   (6),
+                   (7),
+                   (8),
+                   (9),
+                   (10);
         </sql>
     </changeSet>
 

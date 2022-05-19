@@ -108,8 +108,7 @@ public class EntityDaoImpl<T> implements EntityDao {
         em = HibernateUtil.getEntityManager();
         String queryString = "SELECT e FROM " + clazz.getSimpleName() + " e";
         Query query = em.createQuery(queryString);
-        List list = query.getResultList();
-        list.forEach(System.out::println);
+        List<T> list = query.getResultList();
         em.close();
         return list;
     }

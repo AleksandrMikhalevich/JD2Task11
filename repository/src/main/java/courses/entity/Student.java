@@ -1,24 +1,12 @@
 package courses.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -37,16 +25,15 @@ public class Student extends Person implements Serializable {
     /**
      * Connection with table "Course"
      */
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "students_courses",
             joinColumns = {@JoinColumn(name = "id_student")},
             inverseJoinColumns = {@JoinColumn(name = "id_course")}
     )
-    @ToString.Exclude
     @Builder.Default
     private Set<Course> courses = new HashSet<>();
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student",fetch = FetchType.EAGER)
     @ToString.Exclude
     @Builder.Default
     private Set<Task> tasks = new HashSet<>();

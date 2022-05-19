@@ -2,13 +2,10 @@ package managment.implementation;
 
 import courses.dao.EntityDaoImplTask;
 import courses.dao.EntityDaoImplTeacher;
-import courses.entity.Course;
-import courses.entity.Mark;
-import courses.entity.Student;
-import courses.entity.Task;
+import courses.entity.*;
 import managment.interfaces.TeacherService;
 
-import java.util.Set;
+import java.util.List;
 
 public class TeacherServiceImpl implements TeacherService {
 
@@ -61,6 +58,36 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public Teacher register(String name, String surname) {
+        Teacher teacher = Teacher.builder()
+                .name(name)
+                .surname(surname)
+                .build();
+        daoImplTeacher.insert(teacher);
+        return teacher;
+    }
+
+    @Override
+    public void update(int id, String name, String surname) {
+        Student student = Student.builder()
+                .id(id)
+                .name(name)
+                .surname(surname)
+                .build();
+        daoImplTeacher.update(student);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        daoImplTeacher.deleteById(id);
+    }
+
+    @Override
+    public List<Teacher> findAll() {
+        return daoImplTeacher.select();
+    }
+
+    @Override
     public void showTaskWithMark() {
         daoImplTask.showTaskWithMark();
     }
@@ -69,4 +96,6 @@ public class TeacherServiceImpl implements TeacherService {
     public void showTaskWithoutMark() {
         daoImplTask.showTaskWithoutMark();
     }
+
+
 }

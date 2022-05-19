@@ -1,11 +1,9 @@
 package managment.interfaces;
 
-import courses.entity.Course;
-import courses.entity.Mark;
-import courses.entity.Student;
-import courses.entity.Task;
+import courses.entity.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 public interface TeacherService {
     /**
@@ -49,4 +47,12 @@ public interface TeacherService {
      * Get Task
      */
     Task getTask(Integer id);
+
+    Teacher register(String name, String surname);
+
+    void update(int id, String name, String surname);
+
+    void deleteById(int id);
+
+    List<Teacher> findAll();
 }
